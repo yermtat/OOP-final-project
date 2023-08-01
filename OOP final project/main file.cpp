@@ -2,6 +2,7 @@
 #include "Wallet.h"
 
 
+
 int main(){
 	/*Wallet wallet("Visa", 45);
 	cout << wallet.getMoney() << endl;
@@ -62,22 +63,45 @@ int main(){
 
 	*/
 
-	vector<Expenses> week_exp = week_expenses(expenses, 31, overall_exp);
+	vector<Expenses> week_exp = week_expenses(expenses, 32);
+
+	vector<Expenses> month_exp = month_expenses(expenses, 8);
+
+	array<int, 6> month_cat_exp = count_exp(month_exp, overall_exp);
 
 
-	for (Expenses item : expenses)
+	/*for (Expenses item : expenses)
 	{
 		cout << item.get_category() << endl;
 	}
-	cout << endl;
+	cout << endl;*/
 
 	for (Expenses item : week_exp)
 	{
 		cout << item.get_category() << endl;
 	}
 
+	array<int, 6> cat_exp = count_exp(week_exp, overall_exp);
+
 	cout << overall_exp << endl;
+
+	cout << endl;
+
+	for (size_t i = 0; i < 6; i++)
+	{
+		if (cat_exp[i] != 0) {
+
+			cout << "on " << i << " category spent " << cat_exp[i] << " azn" << endl;;
+		}
+		
+	}
 	
+	sort(week_exp.begin(), week_exp.end(), money_compare);
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		week_exp[i].showExp();
+	}
 
 
 	

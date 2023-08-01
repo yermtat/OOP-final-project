@@ -9,7 +9,12 @@ Expenses::Expenses(float exp_money, Wallet& account, int category, tm date) : ex
 	account.expenses(exp_money);
 };
 
-vector<Expenses> day_expenses(const vector<Expenses>& exp, const tm& date, int& overall_exp) {
+void Expenses::showExp() {
+	cout << exp_money << " azn is spent on " << category << " category" << endl;
+}
+
+
+vector<Expenses> day_expenses(const vector<Expenses>& exp, const tm& date) {
 	
 	vector<Expenses> day_exp;
 
@@ -19,14 +24,13 @@ vector<Expenses> day_expenses(const vector<Expenses>& exp, const tm& date, int& 
 		if (item.date.tm_year == date.tm_year &&
 			item.date.tm_mon == date.tm_mon && item.date.tm_mday == date.tm_mday) {
 			day_exp.push_back(item);
-			overall_exp += item.exp_money;
 		}
 	}
 
 	return day_exp;
 }
 
-vector<Expenses> week_expenses(const vector<Expenses>& exp, int week, int& overall_exp) {
+vector<Expenses> week_expenses(const vector<Expenses>& exp, int week) {
 
 	vector<Expenses> week_exp;
 
@@ -34,10 +38,46 @@ vector<Expenses> week_expenses(const vector<Expenses>& exp, int week, int& overa
 	{
 		if (item.week_number == week) {
 			week_exp.push_back(item);
-			overall_exp += item.exp_money;
 		}
 	}
 
 	return week_exp;
 }
 
+vector<Expenses> month_expenses(const vector<Expenses>& exp, int month)
+{
+	vector<Expenses> month_exp;
+
+	for (Expenses item : exp)
+	{
+		if (item.date.tm_mon == month) {
+			month_exp.push_back(item);
+		}
+	}
+	return month_exp;
+}
+
+array<int, 6> count_exp(const vector<Expenses>& exp, int& overall_exp)
+{
+	array<int, 6> counted_exp{};
+
+	for (Expenses item : exp)
+	{
+		for (size_t i = 0; i < 6; i++)
+		{
+			if (item.get_category() == i) {
+				counted_exp[i] += item.get_exp_money();
+				break;
+			}
+		}
+		overall_exp += item.get_exp_money();
+	}
+
+	return counted_exp;
+
+}
+
+
+bool money_compare(Expenses& left, Expenses& right) {
+	return left.get_exp_money() > right.get_exp_money();
+}
