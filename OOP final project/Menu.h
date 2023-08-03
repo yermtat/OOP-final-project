@@ -1,7 +1,6 @@
 #pragma once
 #include"Data.h"
 #include<conio.h>
-#include<Windows.h>
 #include<iomanip>
 
 HANDLE h;
