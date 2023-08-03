@@ -1,5 +1,5 @@
 #include "Main functions.h"
-
+#include<fstream>
 
 int main() {
 
@@ -20,6 +20,8 @@ int main() {
 	vector<Wallet> my_accounts{};
 	vector<Expenses> my_expensies{};
 	vector<Expenses> time_interval_expenses{};
+	vector<int> exp_by_categories{};
+	vector<Categories> sort_categories{};
 
 	vector<string> acc_names{};
 
@@ -31,7 +33,8 @@ int main() {
 
 
 	float money{};
-	int week{}, month{};
+	int week{}, month{}, overall_exp{};
+	
 
 	vector<string> startMenu{
 		"Show my accounts",
@@ -60,6 +63,17 @@ int main() {
 		"Month"
 	};
 
+	vector<string> time_interval_woDay{
+		"Week",
+		"Month"
+	};
+
+	vector<string> top3{
+		"By expenses",
+		"Ny Categories"
+	};
+
+	ofstream outf("reports and raitings.txt", ios::app);
 
 	while(true){
 	 menuItem = menu(startMenu);
@@ -110,6 +124,7 @@ int main() {
 		 struct tm expense_date = time_enter(date_menu_item);
 
 		 my_expensies.push_back(Expenses(money, my_accounts[acc_menu_item], categ_menu_item, expense_date));
+		 categories_vec[categ_menu_item].setMaxMoney(money);
 		 
 		 break;
 	 case 5:
@@ -155,8 +170,111 @@ int main() {
 		 }
 		 system("pause");
 
-	 default:
+		
+
+		 for (Expenses item : time_interval_expenses)
+		 {
+			 outf << item.get_exp_money() << " azn is spent on " << categories_string[item.get_category()] << " category" << endl;
+		 } 
+		 outf << endl;
+
 		 break;
+
+	 case 6:
+		
+		 menuItem = menu(top3);
+
+		 switch (menuItem)
+		 {
+		 case 1:
+
+			 menuItem = menu(time_interval_woDay);
+
+			 switch (menuItem)
+			 {
+			 case 1:
+
+				 cout << "Enter a report week: "; // 31.07 - 06.08 это 32 неделя например
+				 cin >> week;
+
+				 time_interval_expenses = week_expenses(my_expensies, week);
+				 break;
+
+			 case 2:
+
+				 cout << "Enter a report month: ";
+				 cin >> month;
+
+				 time_interval_expenses = month_expenses(my_expensies, month - 1);
+			 }
+
+			 sort(time_interval_expenses.begin(), time_interval_expenses.end(), money_compare);
+
+	
+			for (int i = 0; i < 3 && i < time_interval_expenses.size(); i++)
+			{
+			 cout << time_interval_expenses[i].get_exp_money() << " azn is spent on " 
+				 << categories_string[time_interval_expenses[i].get_category()] << " category" << endl;
+			}
+			system("pause");
+
+
+			for (int i = 0; i < 3 && i < time_interval_expenses.size(); i++)
+			{
+			 outf << time_interval_expenses[i].get_exp_money() << " azn is spent on "
+				 << categories_string[time_interval_expenses[i].get_category()] << " category" << endl;
+			}
+			outf << endl;
+
+			break;
+
+		 case 2:
+
+			 menuItem = menu(time_interval_woDay);
+
+			 switch (menuItem)
+			 {
+			 case 1:
+
+				 cout << "Enter a report week: "; // 31.07 - 06.08 это 32 неделя например
+				 cin >> week;
+
+				 time_interval_expenses = week_expenses(my_expensies, week);
+				 break;
+
+			 case 2:
+
+				 cout << "Enter a report month: ";
+				 cin >> month;
+
+				 time_interval_expenses = month_expenses(my_expensies, month - 1);
+			 }
+			 
+
+			 sort_categories = categories_vec;
+
+			 sort(sort_categories.begin(), sort_categories.end(), cat_money_compare);
+
+			 for (int i = 0; i < 3 && i < time_interval_expenses.size(); i++)
+			 {
+				 cout << sort_categories[i].getMaxMoney() << " azn is spent on "
+					 << sort_categories[i].getCat_name() << " category" << endl;
+			 }
+			 system("pause");
+
+
+			 for (int i = 0; i < 3 && i < time_interval_expenses.size(); i++)
+			 {
+				 outf << sort_categories[i].getMaxMoney() << " azn is spent on "
+					 << sort_categories[i].getCat_name() << " category" << endl;
+			 }
+			 outf << endl;
+			 break;
+
+		 }
+	 case 7:
+		 return 0;
+
 	 }
 
 	 system("cls");

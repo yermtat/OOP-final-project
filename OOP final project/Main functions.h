@@ -66,7 +66,7 @@ struct tm time_enter(short dateItem) {
 		int day{}, month{}, year{};
 
 		cout << "Enter a day, a month and a year: " << endl;
-		cin >> day, month, year;
+		cin >> day>>month>>year;
 
 		expensy_date.tm_year = year - 1900;
 		expensy_date.tm_mday = day;

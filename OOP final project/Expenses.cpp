@@ -60,7 +60,6 @@ vector<Expenses> month_expenses(const vector<Expenses>& exp, int month)
 
 vector<int> count_exp(const vector<Expenses>& exp, int& overall_exp)
 {
-
 	vector<int> counted_exp{};
 	counted_exp.resize(Categories::getQuantity(), 0);
 
