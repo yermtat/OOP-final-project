@@ -1,6 +1,7 @@
 #include "Expenses.h"
 #include "helper function.h"
 
+
 Expenses::Expenses(float exp_money, Wallet& account, int category, tm date) : exp_money(exp_money), account(account.getName()), 
 	category(category), date(date) 
 {
@@ -57,13 +58,15 @@ vector<Expenses> month_expenses(const vector<Expenses>& exp, int month)
 	return month_exp;
 }
 
-array<int, 6> count_exp(const vector<Expenses>& exp, int& overall_exp)
+vector<int> count_exp(const vector<Expenses>& exp, int& overall_exp)
 {
-	array<int, 6> counted_exp{};
+
+	vector<int> counted_exp{};
+	counted_exp.resize(Categories::getQuantity(), 0);
 
 	for (Expenses item : exp)
 	{
-		for (size_t i = 0; i < 6; i++)
+		for (size_t i = 0; i < counted_exp.size(); i++)
 		{
 			if (item.get_category() == i) {
 				counted_exp[i] += item.get_exp_money();

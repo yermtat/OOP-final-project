@@ -127,14 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Categories.cpp" />
     <ClCompile Include="Expenses.cpp" />
     <ClCompile Include="main file.cpp" />
+    <ClCompile Include="My_finance_main_file.cpp" />
     <ClCompile Include="Wallet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Categories.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Expenses.h" />
     <ClInclude Include="helper function.h" />
+    <ClInclude Include="Main functions.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

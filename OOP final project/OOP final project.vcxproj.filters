@@ -24,6 +24,12 @@
     <ClCompile Include="Expenses.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Categories.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="My_finance_main_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wallet.h">
@@ -36,6 +42,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="helper function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Categories.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
